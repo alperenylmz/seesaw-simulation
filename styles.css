@@ -1,0 +1,132 @@
+:root {
+  --plank-length: 400px;
+  --plank-thickness: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  background: white;
+  color: black;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.scene {
+  margin-top: 16px;
+  height: 320px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.seesaw {
+  position: relative;
+  width: var(--plank-length);
+  height: 200px;
+}
+
+.plank {
+  position: absolute;
+  left: 50%;
+  top: 110px;
+  width: var(--plank-length);
+  height: var(--plank-thickness);
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: 50% 50%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #caa46a, #8b5a2b);
+  cursor: pointer;
+}
+
+.pivot {
+  position: absolute;
+  left: 50%;
+  top: 118px;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background: #e8ecff;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.hint {
+  opacity: 0.8;
+  margin-top: 12px;
+}
+
+.logPanel {
+    margin-top: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.02);
+    padding: 12px;
+  }
+  
+  .logPanelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .logTitle {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+  }
+  
+  .logClear {
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: white;
+    color: black;
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  
+  .logClear:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+  
+  .logScroll {
+    height: 160px;
+    overflow: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  
+  .logList {
+    margin: 0;
+    padding-left: 18px;
+  }
+  
+  .logList li {
+    padding: 2px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }

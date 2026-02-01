@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seesaw Simulation</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <main class="app">
+            <h1>Seesaw Simulation</h1>
+            <div id="scene" class="scene">
+                <div id="seesaw" class="seesaw" aria-label="Seesaw">
+                    <div id="plank" class="plank"></div>
+                    <div class="pivot" aria-hidden="true"></div>
+                </div>
+            </div>
+            <section class="logPanel" aria-label="Log Kayıtları">
+                <div class="logPanelHeader">
+                    <h2 class="logPanelTitle">Logs</h2>
+                    <button id="clearLogs" class="logClear" type="button">Clear</button>
+                </div>
+                <div id="log" class="logScrollArea" role="log" aria-live="polite">
+                    <ol id="logList" class="logList"></ol>
+                </div>
+            </section>
+        </main>
+
+        <script src="app.js"></script>
+    </body>
+</html>
