@@ -54,7 +54,46 @@
         console.log("Added item: ", item);
     }
 
-    //plank tıklaması
+    //tork hesaplaması
+    function calculateTorque(items) {
+        let leftTorque=0;
+        let rightTorque=0;
+
+        for(const item of items){
+            if(item.x<PIVOT){ //sol taraftaysa
+                const distance=PIVOT-item.x;
+                leftTorque+=item.weight*distance;
+            } else{ //sağ taraftaysa
+                const distance=item.x-PIVOT;
+                rightTorque+=item.weight*distance;
+
+            }
+        }
+        return {leftTorque, rightTorque};
+    }
+
+    //rotasyon angle hesaplaması
+    function calculateAngle(leftTorque, rightTorque){
+        return Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
+    }
+
+    //rotasyon renderı için
+    function renderAngle(angleDegree){
+        plankElement.style.transform=`translateX(-50%) rotate(${angleDegree}deg)`;
+    }
+
+    //state değişikliklerini render ediyoruz
+    function updateSeesaw(){
+        const {leftTorque, rightTorque}=calculateTorque(state.items);
+        const angle=calculateAngle(leftTorque, rightTorque);
+
+        renderAngle(angle);
+
+        //log güncellemeis
+        appendLogLine(`Torque L=${leftTorque.toFixed(1)} | R=${rightTorque.toFixed(1)} → angle=${angle.toFixed(2)}°`);
+    }
+
+    //plank tıklaması->click event başlangıç noktası
     function onPlankClick(event) {
         const x=getClickOnPlank(event);
         const distanceFromPivot=Math.abs(x-PIVOT)
@@ -66,6 +105,7 @@
         console.log({ x, side, distanceFromPivot });
 
         addRandomItem(x);
+        updateSeesaw();
     }
 
     plankElement.addEventListener("click", onPlankClick);
