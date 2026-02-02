@@ -57,23 +57,32 @@ body {
   transition: transform 950ms ease;
 }
 
-.pivot {
+.pivot { /* pivot noktası için */
   position: absolute;
   left: 50%;
   top: 118px;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
   background: #e8ecff;
   border-radius: 50%;
-  opacity: 0.9;
+  opacity: 1;
+}
+.pivot::after{ /* pivot hizasında üçgen için */
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+
+    border-left: 26px solid transparent;
+    border-right: 26px solid transparent;
+    border-bottom: 44px solid #6b7280;
 }
 
-.hint {
-  opacity: 0.8;
-  margin-top: 12px;
-}
-
+/* log kısmımız */
 .logPanel {
   margin-top: 16px;
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -144,7 +153,7 @@ body {
 .seesawItem{
   position: absolute;
   top: 0;
-  transform: translate(-50%, -120%);
+  transform: translate(-50%, -100%);
   width: 32px;
   height: 32px;
   border-radius: 999px;
@@ -181,4 +190,18 @@ body {
     font-weight:700;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
+}
+.reset{
+    margin: 12px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+.resetButton{
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: white;
+    color: black;
+    border-radius: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 700;
 }

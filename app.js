@@ -23,6 +23,9 @@
     const statAngleEl = document.getElementById("statAngle");
     const statRightEl = document.getElementById("statRight");
 
+    //reset butonumuz içibn
+    const resetButton=document.getElementById("resetButton");
+
     function appendLogLine(text) {
         if (!logListElement) return;
       
@@ -166,6 +169,19 @@
         }
     }
 
+    //reset butonu aksiyonu
+    function resetPlank(){
+        state.items=[];
+        localStorage.removeItem(STORAGE_KEY);
+
+        //log temizleme
+        if(logListElement){
+            logListElement.innerHTML="";
+        }
+
+        updateSeesaw();
+    }
+
     //state değişikliklerini render ediyoruz
     function updateSeesaw(){
         const {leftTorque, rightTorque}=calculateTorque(state.items);
@@ -189,11 +205,13 @@
         const distance=Math.round(Math.abs(item.x-PIVOT));
         const side=item.x<PIVOT ? "left" : "right";
         
+        //log formatı dökümanda verilen örnekten alındı
         appendLogLine(`📦 ${item.weight}kg dropped on ${side} side at ${distance}px from center`);
 
         updateSeesaw();
     }
 
+    resetButton.addEventListener("click", resetPlank);
     plankElement.addEventListener("click", onPlankClick);
     loadSeesawState();
 })();
