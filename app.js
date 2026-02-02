@@ -4,6 +4,8 @@
     const PLANK_LENGTH = 400;
     const PIVOT = PLANK_LENGTH / 2;
 
+    const STORAGE_KEY="seesaw_state";
+
     // state'imiz:
     const state = {
         items: [],
@@ -130,6 +132,37 @@
             layer.appendChild(el);
         }
     }
+    
+    //seesaw plankin stateini localstoragea atmak için
+    function saveSeesawState(){
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+        } catch (error) {
+            console.warn("Failed to save seesaw state:", error);
+        }
+    }
+
+    //sayfa refresh edildiğinde statei yüklemek için
+    function loadSeesawState(){
+        try {
+            const raw=localStorage.getItem(STORAGE_KEY);
+
+            if(!raw){
+                return;
+            }
+            
+            const items=JSON.parse(raw);
+            if (Array.isArray(items)){
+                state.items=items;
+            } 
+
+            updateSeesaw();
+
+        } catch (error) {
+            console.warn("Failed to load state:", error);
+            state.items=[];
+        }
+    }
 
     //state değişikliklerini render ediyoruz
     function updateSeesaw(){
@@ -146,6 +179,7 @@
 
         //log güncellemeis
         appendLogLine(`Torque L=${leftTorque.toFixed(1)} | R=${rightTorque.toFixed(1)} → angle=${angle.toFixed(2)}°`);
+        saveSeesawState();
     }
 
     //plank tıklaması->click event başlangıç noktası
@@ -164,5 +198,5 @@
     }
 
     plankElement.addEventListener("click", onPlankClick);
-  
+    loadSeesawState();
 })();
