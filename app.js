@@ -28,7 +28,7 @@
       
         const li = document.createElement("li");
         li.textContent = text;
-        logListElement.appendChild(li);
+        logListElement.prepend(li);
       }
       
       if (clearLogButton && logListElement) {
@@ -59,6 +59,8 @@
         };
         state.items.push(item);
         console.log("Added item: ", item);
+
+        return item;
     }
 
     //tork hesaplaması
@@ -177,23 +179,18 @@
         if (statAngleEl) statAngleEl.textContent = `${angle.toFixed(2)}°`;
         if (statRightEl) statRightEl.textContent = `${rightWeight}kg`;
 
-        //log güncellemeis
-        appendLogLine(`Torque L=${leftTorque.toFixed(1)} | R=${rightTorque.toFixed(1)} → angle=${angle.toFixed(2)}°`);
         saveSeesawState();
     }
 
     //plank tıklaması->click event başlangıç noktası
     function onPlankClick(event) {
         const x=getClickOnPlank(event);
-        const distanceFromPivot=Math.abs(x-PIVOT)
-        const side = x < PIVOT ? "Left" : "Right";
-        const xRounded = Math.round(x);
-        const dRounded = Math.round(distanceFromPivot);
-        const sideLabel = side;
-        appendLogLine(`Clicked → ${sideLabel} | x=${xRounded}px | Distance from pivot=${dRounded}px`);
-        console.log({ x, side, distanceFromPivot });
+        const item=addRandomItem(x);
+        const distance=Math.round(Math.abs(item.x-PIVOT));
+        const side=item.x<PIVOT ? "left" : "right";
+        
+        appendLogLine(`📦 ${item.weight}kg dropped on ${side} side at ${distance}px from center`);
 
-        addRandomItem(x);
         updateSeesaw();
     }
 
