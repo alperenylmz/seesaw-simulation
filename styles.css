@@ -54,7 +54,7 @@ body {
   border-radius: 999px;
   background: linear-gradient(180deg, #caa46a, #8b5a2b);
   cursor: pointer;
-  transition: transform 900ms ease;
+  transition: transform 950ms ease;
 }
 
 .pivot {
@@ -75,59 +75,109 @@ body {
 }
 
 .logPanel {
-    margin-top: 16px;
+  margin-top: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  padding: 12px;
+}
+
+.logPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logTitle{
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+}
+
+.logClear{
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: white;
+  color: black;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.logClear:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.logScroll{
+  height: 160px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.logList{
+  margin: 0;
+  padding-left: 18px;
+}
+
+.logList li{
+  padding: 2px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.itemsLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* objeler click'i engellemesin */
+}
+
+.seesawItem{
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -120%);
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #1f6feb;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.statsRow{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+    margin-top:12px;
+}
+.statBox{
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.02);
-    padding: 12px;
-  }
-  
-  .logPanelHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-  
-  .logTitle {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 650;
-    letter-spacing: 0.2px;
-  }
-  
-  .logClear {
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    background: white;
-    color: black;
-    border-radius: 10px;
-    padding: 6px 10px;
-    cursor: pointer;
-  }
-  
-  .logClear:hover {
-    background: rgba(0, 0, 0, 0.04);
-  }
-  
-  .logScroll {
-    height: 160px;
-    overflow: auto;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    padding: 10px 12px;
+}
+.statLabel{
     font-size: 12px;
-    line-height: 1.35;
-  }
-  
-  .logList {
-    margin: 0;
-    padding-left: 18px;
-  }
-  
-  .logList li {
-    padding: 2px 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
+    opacity: 0.8;
+}
+.statValue{
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight:700;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
