@@ -35,12 +35,25 @@ body {
   display: grid;
   place-items: center;
   overflow: hidden;
+  position: relative;
 }
 
 .seesaw {
   position: relative;
   width: var(--plank-length);
   height: 200px;
+}
+
+/* yaratılan objelerin düşmesi için (henüz aktive edilmedi) */
+@keyframes dropIn{
+    from{
+        transform: translate(-50%,-260%);
+        opacity: 0;
+    }
+    to{
+        transform: translate(-50%,-120%);
+        opacity: 1;
+    }
 }
 
 .plank {
@@ -113,6 +126,7 @@ body {
   border-radius: 10px;
   padding: 6px 10px;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .logClear:hover {
@@ -191,10 +205,11 @@ body {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 }
-.reset{
-    margin: 12px 0;
-    display: flex;
-    justify-content: flex-end;
+.scene .reset{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
 }
 .resetButton{
     border: 1px solid rgba(0, 0, 0, 0.18);
@@ -204,4 +219,52 @@ body {
     padding: 8px 12px;
     cursor: pointer;
     font-weight: 700;
+}
+.resetButton:hover{
+    background: rgba(0, 0, 0, 0.04); 
+}
+.scale{
+    position:absolute; 
+    left: 50%;
+    top: calc(100% + 10px);
+    transform: translateX(-50%);
+    width: var(--plank-length);
+    height: 44px;
+    padding-top: 6px;
+
+    background:
+        linear-gradient(to right, rgba(0,0,0,0.18) 0 1px, transparent 1px 50px) 0 6px / 50px 10px repeat-x,
+        linear-gradient(to right, rgba(0,0,0,0.30) 0 1px, transparent 1px 100px) 0 0 / 100px 16px repeat-x,
+        linear-gradient(to bottom, rgba(0,0,0,0.28), rgba(0,0,0,0.28)) 0 0 / 100% 2px no-repeat,
+        linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(0,0,0,0.03));
+}
+.scale::before{
+    content:"";
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.30);
+}
+.scale::after{
+    content:"";
+    position: absolute;
+    top: 0;
+    bottom:0;
+    right: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.30);
+}
+.scaleLabels{
+    position:absolute; 
+    left: 0; 
+    right: 0;
+    bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    font-size:11px;
+    color: rgba(0,0,0,0.70);
 }
