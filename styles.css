@@ -44,14 +44,14 @@ body {
   height: 200px;
 }
 
-/* yaratılan objelerin düşmesi için (henüz aktive edilmedi) */
+/* yaratılan objelerin düşmesi için  */
 @keyframes dropIn{
     from{
         transform: translate(-50%,-260%);
         opacity: 0;
     }
     to{
-        transform: translate(-50%,-120%);
+        transform: translate(-50%,-100%);
         opacity: 1;
     }
 }
@@ -181,6 +181,11 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
+/* burada isNew ile vermemizin sebebi yalnızca yeni oluşturulan eleman için çalışmalı */
+.seesawItem.isNew{
+    animation: dropIn 200ms ease-out both;
+}
+
 .statsRow{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -237,6 +242,7 @@ body {
         linear-gradient(to right, rgba(0,0,0,0.30) 0 1px, transparent 1px 100px) 0 0 / 100px 16px repeat-x,
         linear-gradient(to bottom, rgba(0,0,0,0.28), rgba(0,0,0,0.28)) 0 0 / 100% 2px no-repeat,
         linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(0,0,0,0.03));
+    pointer-events: none; /* plank -30 derece ile aşağı inince tıklamada sorun oldu. */
 }
 .scale::before{
     content:"";

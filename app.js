@@ -10,6 +10,7 @@
     const state = {
         items: [],
         logs: [], //logları da saklamk için
+        lastAddedItemId: null, //animasyonumuz için son oluşturulacak elemanı tutmak için 
     }
 
     const plankElement = document.getElementById('plank');
@@ -25,6 +26,33 @@
 
     //reset butonumuz içibn
     const resetButton=document.getElementById("resetButton");
+
+
+    //item eklendiğinde ses vermek için
+    let audioCtx;
+
+    function playDropSound(){
+        try {
+            audioCtx ??=new(window.AudioContext)();
+            if(audioCtx.state ==="suspended") audioCtx.resume();
+
+            const osc=audioCtx.createOscillator();
+            const gain=audioCtx.createGain();
+
+            osc.type="sine";
+            osc.frequency.value=440;
+
+            gain.gain.value=0.08;
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+0.08); 
+
+            osc.connect(gain); 
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime+0.08);
+        } catch (error) {
+            console.warn("Failed playing sound when item added:", error);
+        }
+    }
 
     function appendLogLine(text) {
         state.logs.unshift(text); //yukarıdan eklememiz gerekiyor log formatımız için
@@ -57,6 +85,8 @@
             weight,
         };
         state.items.push(item);
+        state.lastAddedItemId=item.id; //son elemanı da alıyoruz artık (animasyon için)
+        playDropSound();
         console.log("Added item: ", item);
 
         return item;
@@ -121,10 +151,16 @@
         const layer=getOrCreateItemsLayer();
         layer.innerHTML="";
 
+        const newId=state.lastAddedItemId;
+
         for(const item of state.items){
             const el=document.createElement("div");
             el.className="seesawItem";
             el.dataset.id=item.id;
+
+            if(item.id===newId){
+                el.classList.add("isNew"); //son elemana stylesa eklediğimiz .isNew classını veriyoruz
+            }
 
             const leftPercent=(item.x/PLANK_LENGTH)*100; //ilgili noktaya yerleştirmek için plank uzunluğu ile yüzdelik aldık
             el.style.left=`${leftPercent}%`;
@@ -132,6 +168,7 @@
             el.textContent=`${item.weight}kg`; //daire içindeki weight verisi
             layer.appendChild(el);
         }
+        state.lastAddedItemId=null; //son eklenen elemanı sıfırlama
     }
     
     //seesaw plankin stateini localstoragea atmak için
